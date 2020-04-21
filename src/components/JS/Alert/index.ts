@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import MessageBox from './messageBox.vue';
-export const messageBox = function(opts){
+export const messageBox = function(opts: any){
   
         const mixin = {
             data: function () {

@@ -20,7 +20,7 @@
     </div>
 </template>
 <script lang="ts">
-import {messageBox} from "@/components/JS/Alert";
+import {messageBox} from "@/components/JS/Alert/index.ts";
 import { Component,Ref, Vue } from "vue-property-decorator";
 @Component
 export default class Login extends Vue {
@@ -28,7 +28,7 @@ export default class Login extends Vue {
     username = ''
     password = ''
     verifyImg = ''
-    @Ref('img') readonly img: any
+    @Ref('img') readonly img!: HTMLImageElement
     handleToLogin(){
         const fullPath = this.$route.query.redirect;
         this.isLoading = true;
@@ -36,7 +36,7 @@ export default class Login extends Vue {
             username : this.username,
             password : this.password,
             verifyImg : this.verifyImg
-        }).then((res: any)=>{
+        }).then((res:any)=>{
             const status = res.data.status;
             if(status === 0){
                 //设置token
@@ -76,7 +76,6 @@ export default class Login extends Vue {
         handleToVerifyImg(ev: any){
             ev.target.src = this.$api.users.verifyImg() +'?' + Math.random();
         }
-
 }
 </script>
 <style scoped>

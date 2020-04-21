@@ -45,7 +45,6 @@
   "lint-staged": {
     "*.{ts,tsx,vue}": [
       "npm run eslint",
-      "prettier .prettierrc.js --write",
       "git add"
     ]
   }
