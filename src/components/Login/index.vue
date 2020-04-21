@@ -36,7 +36,7 @@ export default class Login extends Vue {
             username : this.username,
             password : this.password,
             verifyImg : this.verifyImg
-        }).then((res:any)=>{
+        }).then((res: any)=>{
             const status = res.data.status;
             if(status === 0){
                 //设置token
