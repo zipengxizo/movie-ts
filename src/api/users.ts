@@ -22,6 +22,7 @@ const users = {
         
     },
     verifyImg() {
+        console.log(`${base.api2}/users/verifyImg`)
         return `${base.api2}/users/verifyImg`
     },
     getUser() {

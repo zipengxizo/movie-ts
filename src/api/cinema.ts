@@ -8,7 +8,7 @@ import axios from '@/utils/http';
 const cinema = {    
     // 影院列表    
     cinemaList (arg: any) {        
-        return axios.get(`${base.api1}/cinemaList`,{
+        return axios.get(`${base.api2}/cinema/cinemaList`,{
             params : {
                 cityId : arg.cityId
             }

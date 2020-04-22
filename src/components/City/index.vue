@@ -55,8 +55,8 @@ export default {
     this.$api.city
       .cityList()
       .then(res => {
-        const msg = res.data.msg;
-        if (msg === "ok") {
+        const status = res.data.status;
+        if (status === 0) {
           this.isLoading = false;
           const cities = res.data.data.cities;
           //[ { index : 'A' , list : [{ nm : '阿城' , id : 123 }] } ]
@@ -87,7 +87,7 @@ export default {
       const cityList = [];
       let hotList = [];
       hotList = cities.filter(item => {
-        return item.isHot === 1;
+        return item.isHot === '1';
       });
 
       for (let i = 0; i < cities.length; i++) {

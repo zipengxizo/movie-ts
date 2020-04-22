@@ -8,7 +8,7 @@ import axios from '@/utils/http';
 const movie = {    
     // 正在热映    
     movieOnList (arg: any) { 
-        return axios.get(`${base.api1}/movieOnInfoList`,{
+        return axios.get(`${base.api2}/movie/movieOnInfoList`,{
             params :{
                 cityId : arg.cityId
             }

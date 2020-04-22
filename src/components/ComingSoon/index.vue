@@ -39,11 +39,11 @@ export default class ComingSoon extends Vue {
     if (this.prevCityId === cityId) return;
     this.isLoading = true;
     this.$api.movie
-      .movieComingList({ cityId: cityId })
+      .movieOnList({ cityId: cityId })
       .then((res: any) => {
-        const msg = res.data.msg;
-        if (msg === "ok") {
-          this.comingList = res.data.data.comingList;
+        const status = res.data.status;
+        if (status === 0) {
+          this.comingList = res.data.data.movieList;
           this.isLoading = false;
           this.prevCityId = cityId;
         }
@@ -64,10 +64,10 @@ export default class ComingSoon extends Vue {
   handleToTouchEnd(pos: any) {
     if (pos.y > 30) {
       this.$api.movie
-        .movieComingList({ cityId: this.$store.state.city.cityId })
+        .movieOnList({ cityId: this.$store.state.city.cityId })
         .then((res: any) => {
-          const msg = res.data.msg;
-          if (msg === "ok") {
+          const status = res.data.status;
+          if (status === 0) {
             this.pullDownMsg = "更新成功";
             setTimeout(() => {
               this.comingList = res.data.data.comingList.concat(this.comingList);

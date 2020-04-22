@@ -36,8 +36,8 @@ export default {
         if( this.prevCityId === cityId ){ return; }
         this.isLoading = true;
         this.$api.cinema.cinemaList({cityId:cityId}).then((res) => {
-            const msg = res.data.msg;
-            if(msg === 'ok'){
+            const status = res.data.status;
+            if(status === 0){
                 this.cinemaList = res.data.data.cinemas;
                 this.isLoading = false;
                 this.prevCityId = cityId

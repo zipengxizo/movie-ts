@@ -58,8 +58,8 @@ export default class NowPlaying extends Vue {
       this.$api.movie
         .movieOnList({ cityId: cityId })
         .then((res: any) => {
-          const msg = res.data.msg;
-          if (msg === "ok") {
+          const status = res.data.status;
+          if (status === 0) {
             this.pullDownMsg = "更新成功";
             setTimeout(() => {
               this.movieList = this.movieList.concat(res.data.data.movieList);
@@ -83,8 +83,8 @@ export default class NowPlaying extends Vue {
     this.$api.movie
       .movieOnList({ cityId: cityId })
       .then((res: any) => {
-        const msg = res.data.msg;
-        if (msg === "ok") {
+        const status = res.data.status;
+        if (status === 0) {
           this.movieList = res.data.data.movieList;
           this.isLoading = false;
           this.prevCityId = cityId;

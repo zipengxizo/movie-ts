@@ -1,3 +1,5 @@
+const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 module.exports = {
     productionSourceMap: false,
     publicPath: '/movie',
@@ -5,13 +7,13 @@ module.exports = {
         proxy: {
             '/api2': {
                 target: 'http://8.129.170.158:3000/',
-                // target : 'http://localhost:3000/',
+                // target: 'http://localhost:3000/',
                 changeOrigin: true
             },
             '/api': {
                 target: 'http://39.97.33.178',
                 changeOrigin: true
-            }
+            },
         }
     },
     chainWebpack: config => {
@@ -23,8 +25,6 @@ module.exports = {
     },
     configureWebpack: () => {
         if (process.env.NODE_ENV === 'production') {
-            const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
-            const CompressionWebpackPlugin = import('compression-webpack-plugin');
             return {
                 performance: {
                     hints: 'warning',

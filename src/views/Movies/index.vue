@@ -38,7 +38,7 @@ import { messageBox } from "@/components/JS/Alert/index.ts";
 })
 export default class Movie extends Vue {
     mounted() {
-        window.setTimeout(()=>{
+        /* window.setTimeout(()=>{
         this.$api.location.location().then((res: any) => {
             const msg = res.data.msg;
             if(msg === 'ok'){
@@ -59,7 +59,7 @@ export default class Movie extends Vue {
         }).catch((err: string) => {
             console.log(err);
         });
-    },3000);
+    },3000); */
     }
 }
 

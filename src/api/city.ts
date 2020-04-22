@@ -8,7 +8,7 @@ import axios from '../utils/http';
 const city = {    
     // 城市列表    
     cityList () {        
-        return axios.get(`${base.api1}/cityList`);    
+        return axios.get(`${base.api2}/city/cityList`);    
     },
 }
 
