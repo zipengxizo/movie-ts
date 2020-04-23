@@ -23,6 +23,7 @@
 import {messageBox} from "@/components/JS/Alert/index.ts";
 import { Component,Ref, Vue } from "vue-property-decorator";
 import { RawLocation } from "vue-router";
+import { AxiosResponse } from "axios";
 @Component
 export default class Login extends Vue {
     isLoading = false
@@ -31,14 +32,16 @@ export default class Login extends Vue {
     verifyImg = ''
     @Ref('img') readonly img!: HTMLImageElement
     handleToLogin(){
-        const fullPath: RawLocation = this.$route.query.redirect.toString();
+        const fullPath: RawLocation = this.$route.query.redirect && this.$route.query.redirect.toString();
         this.isLoading = true;
         this.$api.users.login({
             username : this.username,
             password : this.password,
             verifyImg : this.verifyImg
-        }).then((res: any)=>{
-            const status = res.data.status;
+        }).then((res: AxiosResponse)=>{
+            console.log(res)
+            const {status} = res.data;
+            console.log(status)
             if(status === 0){
                 //设置token
                 const {token,username} = res.data.data;
@@ -50,7 +53,6 @@ export default class Login extends Vue {
                     content : '登录成功',
                     ok : '确定',
                     handleOk: ()=>{
-                        console.log(fullPath)
                         if (fullPath) {
                             this.$router.push(fullPath);
                         }
@@ -58,7 +60,6 @@ export default class Login extends Vue {
                             this.$router.push('/mine/center');
                         }
                     }
-                    
                 });
             }
             else{
@@ -70,6 +71,7 @@ export default class Login extends Vue {
                 this.img.src = this.$api.users.verifyImg() + '?' + Math.random();
             }
         }).catch((err: string)=>{
+            console.log(err)
             this.isLoading = false;
 
         }).finally(()=>{
@@ -77,6 +79,7 @@ export default class Login extends Vue {
         })
         }
         handleToVerifyImg(ev: any){
+            console.log(ev)
             ev.target.src = this.$api.users.verifyImg() +'?' + Math.random();
         }
 }

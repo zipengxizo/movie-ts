@@ -30,7 +30,7 @@ export default {
         }
     },
     methods : {
-        handleToVerify(){
+        /* handleToVerify(){
             this.axios.get('/api2/users/verify?email=' + this.email ).then((res)=>{
                 const status = res.data.status;
                 if( status === 0 ){
@@ -48,22 +48,21 @@ export default {
                     });
                 }
             });
-        },
-        /* handleToPassword(){
+        }, */
+        handleToPassword(){
             this.axios.post('/api2/users/findPassword',{
                 email : this.email,
                 password : this.password,
                 verify : this.verify
             }).then((res)=>{
                 const status = res.data.status;
-                var This = this;
                 if(status===0){
                     this.$alert({
                         title : '修改',
                         content : '修改密码成功',
                         ok : '确定',
-                        handleOk(){
-                            This.$router.push('/mine/login');
+                        handleOk:()=>{
+                            this.$router.push('/mine/login');
                         }
                     });
                 }
@@ -75,7 +74,7 @@ export default {
                     });
                 }
             });
-        } */
+        }
     }
 }
 </script>

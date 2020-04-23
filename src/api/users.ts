@@ -1,9 +1,14 @@
 import base from './base';
 import axios from '@/utils/http';
 
+interface Login {
+    usename: string;
+    password1: string;
+    verifyImg: string;
+}
 
 const users = {
-    login(params: any) {
+    login(params: Login) {
         return axios.post(`${base.api2}/users/login`,params)
     },
     register(params: any) {
