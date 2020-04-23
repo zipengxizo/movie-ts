@@ -1,34 +1,38 @@
 <template>
-    <div style="padding:10px;height:100%;display:flex;">
-        <a style="display:block;margin:auto;" href="/movie/usersadmin" target="_blank">进入管理后台</a>
-        <!-- <div>当前用户：{{ $store.state.user.name }} <a href="javascript:void(0);" @click="handleToLogout">退出</a></div>
+  <div style="padding:10px;height:100%;display:flex;">
+    <a style="display:block;margin:auto;" href="/movie/usersadmin" target="_blank">进入管理后台</a>
+    <!-- <div>当前用户：{{ $store.state.user.name }} <a href="javascript:void(0);" @click="handleToLogout">退出</a></div>
         <div v-if="$store.state.user.isAdmin">用户身份：管理员 <a href="/movie/usersadmin" target="_blank">进入管理后台</a></div>
         <div v-else>用户身份：普通会员</div>
         <div>
             <input type="file" name="file" value="上传头像" @change="handleToUpload">
             <img class="userHead" :src="$store.state.user.userHead">
-        </div> -->
-    </div>
+    </div>-->
+  </div>
 </template>
 
 <script>
 // import { messageBox } from '@/components/JS/Alert';
 // import api from '@/api';
 export default {
-    name : 'center',
-    methods : {
-        handleToLogout(){
-            this.$api.users.logout().then((res)=>{
-                const status = res.data.status;
-                if(status === 0){
-                    window.localStorage.removeItem('name');
-                    window.localStorage.removeItem('isAdmin');
-                    this.$store.commit('user/USER_NAME',{ name : '' , isAdmin : false , userHead : '' });
-                    this.$router.push('/mine/login');
-                }
-            });
-        },
-        /* handleToUpload(ev){
+  name: "center",
+  methods: {
+    handleToLogout() {
+      this.$api.users.logout().then(res => {
+        const status = res.data.status;
+        if (status === 0) {
+          window.localStorage.removeItem("name");
+          window.localStorage.removeItem("isAdmin");
+          this.$store.commit("user/USER_NAME", {
+            name: "",
+            isAdmin: false,
+            userHead: ""
+          });
+          this.$router.push("/mine/login");
+        }
+      });
+    }
+    /* handleToUpload(ev){
             const file = ev.target.files[0];
             const param = new FormData();
             param.append('file' , file , file.name);
@@ -65,9 +69,9 @@ export default {
             });
 
         } */
-    },
-/*     beforeRouteEnter (to, from, next) {
-        api.users.getUser().then((res)=>{
+  },
+  beforeRouteEnter(to, from, next) {
+    /* api.users.getUser().then((res)=>{
             var status = res.data.status;
             if(status === 0){
                 next(vm => {
@@ -85,11 +89,16 @@ export default {
             }
         }).catch((err)=>{
             console.log(err)
-        });
-    } */
-}
+        }); */
+  }
+};
 </script>
 
 <style scoped>
-.userHead{ width:100px; height:100px; border-radius: 50%; overflow: hidden;}
+.userHead {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
 </style>

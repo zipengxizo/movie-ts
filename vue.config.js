@@ -12,6 +12,7 @@ module.exports = {
             },
             '/api': {
                 target: 'http://39.97.33.178',
+                // target: 'http://8.129.170.158:3000/',
                 changeOrigin: true
             },
         }

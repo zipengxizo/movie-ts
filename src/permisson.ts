@@ -5,11 +5,6 @@ const whiteList = ['/mine/login','/movie/nowPlaying','/movie/nowPlaying',
 '/movie/comingSoon','/movie/city','/movie/search','/movie/detail/','/cinema'
 ,'/mine/register','/mine/findPassword'];
 router.beforeEach(async(to, from, next) => {
-  
-  const location: Location = {
-    name : 'login',
-    path : `/mine/login?redirect=${to.path}`
-  }
   if (store.getters.token) {
     if (to.path === '/mine/login') {
       next({ path: '/mine/login' })
@@ -39,7 +34,7 @@ router.beforeEach(async(to, from, next) => {
           console.log(error)
           // remove token and go to login page to re-login
           //await store.dispatch('user/resetToken')
-          next(location)
+          next(`/mine/login?redirect=${to.path}`)
         }
       }
     }
@@ -52,7 +47,7 @@ router.beforeEach(async(to, from, next) => {
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      next(location)
+      next(`/mine/login?redirect=${to.path}`)
     }
   }
 })

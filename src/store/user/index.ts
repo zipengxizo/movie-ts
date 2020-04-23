@@ -12,7 +12,7 @@ const initstate: State = {
     roles: [],
 };
 
-const actions: any = {
+const actions = {
   //用async await;
   async getInfo(context: {commit: Commit}){
     const result = await users.getUser();
@@ -44,13 +44,15 @@ const actions: any = {
 
 };
 
+interface NamePayload {
+  name: string;
+}
+
 const mutations = {
-    USER_NAME(state: any , payload: any){
+    USER_NAME(state: State , payload: NamePayload){
         state.name = payload.name;
-        state.isAdmin = payload.isAdmin;
-        state.userHead = payload.userHead;
     },
-    SET_ROLES: (state: any, roles: [string]) => {
+    SET_ROLES: (state: State, roles: string[]) => {
       state.roles = roles
     }
 };
