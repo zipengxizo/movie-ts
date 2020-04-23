@@ -10,8 +10,6 @@
     <el-container>
       <el-aside width="200px">
         <el-menu default-active="1">
-
-          
           <el-menu-item index="item.index" v-for="item in filterPermissionRoutes" :key="item.index">
             <i class="el-icon-menu"></i>
             <router-link :to="item.path" tag="span" slot="title">{{item.meta.title}}</router-link>
@@ -27,7 +25,7 @@
 
 <script>
 import Vue from "vue";
-import element from "@/element";
+import element from "@/element/index";
 import { mapGetters } from 'vuex'
 Vue.use(element);
 export default {

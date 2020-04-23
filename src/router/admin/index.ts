@@ -1,5 +1,6 @@
+import { RouteConfig } from "vue-router";
 
-export const asyncRouterMap  = [
+export const asyncRouterMap: RouteConfig[]  = [
     {
         path : '/usersadmin',
         component : () => import('@/views/Admin/index.vue'),
@@ -49,5 +50,5 @@ export const asyncRouterMap  = [
             }
         ]
     },
-    { path: '*', redirect: '/error', hidden: true }
+    { path: '*', redirect: '/error'}
 ]

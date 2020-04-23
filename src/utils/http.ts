@@ -4,7 +4,7 @@
  */
 import * as axios from 'axios';
 import router from '@/router/'
-// import store from '@/store/index';
+import store from '@/store/index';
 import { Toast } from 'vant';
 // import 'vant/lib/index.css';
 
@@ -77,8 +77,8 @@ instance.interceptors.request.use(
         // 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码        
         // 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。        
         // token && (config.headers.Authorization = token);  
-        /* const token = store.state.token.token;        
-        token && (config.headers.token = token); */
+        const token = store.getters.token;
+        token && (config.headers.token = token);
         return config;    
     },    
     (error: string) => console.log(error))

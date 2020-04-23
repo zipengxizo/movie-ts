@@ -1,9 +1,15 @@
 import router from './router'
+import { Location } from "vue-router";
 import store from './store'
 const whiteList = ['/mine/login','/movie/nowPlaying','/movie/nowPlaying',
 '/movie/comingSoon','/movie/city','/movie/search','/movie/detail/','/cinema'
 ,'/mine/register','/mine/findPassword'];
 router.beforeEach(async(to, from, next) => {
+  
+  const location: Location = {
+    name : 'login',
+    path : `/mine/login?redirect=${to.path}`
+  }
   if (store.getters.token) {
     if (to.path === '/mine/login') {
       next({ path: '/mine/login' })
@@ -20,19 +26,20 @@ router.beforeEach(async(to, from, next) => {
           const { roles } = await store.dispatch('user/getInfo'); */
           // 用await, async
           await store.dispatch('user/getInfo');
-
           // generate accessible routes map based on roles
           await store.dispatch('permission/generateRoutes', {roles:store.getters.roles});
           // dynamically add accessible routes
-          router.addRoutes(store.getters.permission_routes);
+          router.addRoutes(store.getters.permissionRoutes);
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
-          // next({ ...to, replace: true })
-          next({replace: true })
+          const changeLoaction: Location = {...to,name:'',replace:true};
+          next({...changeLoaction})
+          // next({replace: true })
         } catch (error) {
+          console.log(error)
           // remove token and go to login page to re-login
-        //   await store.dispatch('user/resetToken')
-          next(`/mine/login?redirect=${to.path}`)
+          //await store.dispatch('user/resetToken')
+          next(location)
         }
       }
     }
@@ -45,7 +52,7 @@ router.beforeEach(async(to, from, next) => {
       next()
     } else {
       // other pages that do not have permission to access are redirected to the login page.
-      next(`/mine/login?redirect=${to.path}`)
+      next(location)
     }
   }
 })
