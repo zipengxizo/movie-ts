@@ -1,16 +1,18 @@
 
 
-const state: any = {
+const initstate: State = {
     cityName : window.localStorage.getItem('nowNm') || '北京',
     cityId : window.localStorage.getItem('nowId') || 1
 };
-//异步
-const actions = {
 
-};
+export interface State {
+    cityName: string;
+    cityId: number | string;
+}
+
 //同步
 const mutations = {
-        CITY_INFO(state: any , payload: any){
+        CITY_INFO(state: State , payload: State){
         state.cityName = payload.cityName;
         state.cityId = payload.cityId;
     }
@@ -18,7 +20,6 @@ const mutations = {
 
 export default {
     namespaced : true,
-    state,
-    actions,
+    state : initstate,
     mutations
 }

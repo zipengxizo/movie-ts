@@ -22,6 +22,7 @@
 <script lang="ts">
 import {messageBox} from "@/components/JS/Alert/index.ts";
 import { Component,Ref, Vue } from "vue-property-decorator";
+import { RawLocation } from "vue-router";
 @Component
 export default class Login extends Vue {
     isLoading = false
@@ -30,7 +31,7 @@ export default class Login extends Vue {
     verifyImg = ''
     @Ref('img') readonly img!: HTMLImageElement
     handleToLogin(){
-        const fullPath = this.$route.query.redirect;
+        const fullPath: RawLocation = this.$route.query.redirect.toString();
         this.isLoading = true;
         this.$api.users.login({
             username : this.username,
@@ -48,7 +49,8 @@ export default class Login extends Vue {
                     title : '登录',
                     content : '登录成功',
                     ok : '确定',
-                    handleOk(){
+                    handleOk: ()=>{
+                        console.log(fullPath)
                         if (fullPath) {
                             this.$router.push(fullPath);
                         }
@@ -56,6 +58,7 @@ export default class Login extends Vue {
                             this.$router.push('/mine/center');
                         }
                     }
+                    
                 });
             }
             else{

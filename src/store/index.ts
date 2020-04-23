@@ -1,26 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import city from './city'
-import user from './user'
-import token from './token';
-import permission from './permission';
+import city, {State as cityState} from './city'
+import user, {State as userState} from './user'
+import token,{State as tokenSate} from './token';
+import permission,{State as permissionState} from './permission';
+import getters from './getters'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-
-  },
-  getters:{
-    /* roles: state => state.user.roles,
-    permission_routes: state => state.permission.addRouters,
-    token : state => state.token.token */
-  },
-  mutations: {
-
-  },
-  actions: {
-
-  },
+  getters,
   modules : {
     city,
     user,
@@ -28,3 +17,14 @@ export default new Vuex.Store({
     permission
   }
 })
+
+export interface State {
+  token: tokenSate;
+  user: userState;
+  city: cityState;
+  permission: permissionState;
+}
+
+export interface Roles {
+  roles: string[];
+}

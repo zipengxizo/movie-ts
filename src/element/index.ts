@@ -1,5 +1,6 @@
+import { VueConstructor } from "vue";
 import {
-    pagination,
+    Pagination,
     Menu,
     Submenu,
     MenuItem,
@@ -8,8 +9,6 @@ import {
     Header,
     Aside,
     Main,
-    MessageBox,
-    Message,
     Table,
     TableColumn,
     Button,
@@ -19,8 +18,8 @@ import {
 
 
   const element = {
-      install : function(Vue){
-        Vue.use(pagination);
+      install : function(Vue: VueConstructor){
+        Vue.use(Pagination);
         Vue.use(Menu)
         Vue.use(Submenu)
         Vue.use(MenuItem)
@@ -33,12 +32,12 @@ import {
         Vue.use(TableColumn)
         Vue.use(Button)
         Vue.use(Container)
-        
-        Vue.prototype.$msgbox = MessageBox;
+        //element ui typescript 已经做了
+        /* Vue.prototype.$msgbox = MessageBox;
         Vue.prototype.$alert = MessageBox.alert;
         Vue.prototype.$confirm = MessageBox.confirm;
         Vue.prototype.$prompt = MessageBox.prompt;
-        Vue.prototype.$message = Message;
+        Vue.prototype.$message = Message; */
       }
   }
 

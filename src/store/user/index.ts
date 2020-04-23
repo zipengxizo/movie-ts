@@ -1,16 +1,20 @@
 import { Commit} from "vuex";
 
 import users from '@/api/users';
-const state = {
+
+export interface State {
+  name: string | null;
+  roles: string[];
+}
+
+const initstate: State = {
     name : window.localStorage.getItem('username') || '',
-    isAdmin : window.localStorage.getItem('isAdmin') ||  false,
-    userHead : '',
     roles: [],
 };
 
 const actions: any = {
   //用async await;
-  async getInfo(context: {commit: Commit},params: object){
+  async getInfo(context: {commit: Commit}){
     const result = await users.getUser();
     const {roles} = result.data.data;
     context.commit('SET_ROLES',roles); 
@@ -53,7 +57,7 @@ const mutations = {
 
 export default {
     namespaced : true,
-    state,
+    state : initstate,
     actions,
     mutations
 }

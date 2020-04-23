@@ -8,9 +8,11 @@ import movieRouter from '@/router/movies';
 import { RouteConfig } from "vue-router";
 import { Commit } from "vuex";
 
-const constantRouterMap: [RouteConfig,RouteConfig,RouteConfig] = [cinemaRouter, mineRouter, movieRouter];
+import { Roles } from "../index";
 
-function hasPermission(roles: any, route: any) {
+const constantRouterMap: RouteConfig[] = [cinemaRouter, mineRouter, movieRouter];
+
+function hasPermission(roles: string[], route: RouteConfig) {
   try {
     if (route.meta && route.meta.role) {
       return roles.some((role: string) => route.meta.role.indexOf(role) >= 0)
@@ -22,26 +24,34 @@ function hasPermission(roles: any, route: any) {
   }
 }
 
+export interface State {
+  routers: RouteConfig[];
+  addRouters: RouteConfig[];
+}
+
+const initstate = {
+  routers: constantRouterMap,
+  addRouters: []
+};
+
 const permission = {
   namespaced: true,
-  state: {
-    routers: constantRouterMap,
-    addRouters: []
-  },
+  state: initstate,
   mutations: {
-    SET_ROUTERS: (state: any, routers: RouteConfig) => {
-      state.addRouters = routers;
+    SET_ROUTERS: (state: State, routers: RouteConfig[]) => {
+      // state.addRouters = state.addRouters.concat(routers);
+      state.addRouters.push(...routers);
       state.routers = constantRouterMap.concat(routers);
     }
   },
   actions: {
-    generateRoutes(context: {commit: Commit}, data: any) {
+    generateRoutes(context: {commit: Commit}, paramRoles: Roles) {
       return new Promise(resolve => {
         const {
           roles
-        } = data;
+        } = paramRoles;
         //asyncRouterMap 以后根据role获取
-        const accessedRouters = asyncRouterMap.filter(v => {
+        const accessedRouters: RouteConfig[] = asyncRouterMap.filter((v: RouteConfig) => {
           if (roles.indexOf('admin') >= 0) return true;
           if (hasPermission(roles, v)) {
             if (v.children && v.children.length > 0) {
